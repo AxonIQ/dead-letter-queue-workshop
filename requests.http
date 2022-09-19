@@ -1,0 +1,13 @@
+### Good request
+POST localhost:8080/product
+Content-Type: text/plain
+
+My lovely product
+
+
+### Bad request
+POST localhost:8080/product
+Content-Type: text/plain
+
+My lovely product with a too long name for the database!
+
