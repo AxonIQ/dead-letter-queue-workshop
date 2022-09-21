@@ -94,11 +94,11 @@ Or rather, we can park the event so newer events can get processed, until we fix
 > **Task 3**
 > 
 > 1. Register a Dead-letter Queue in the `WorkshopConfiguration`
->   - You can find out more about this in [this section of the reference guide](https://docs.axoniq.io/reference-guide/axon-framework/events/event-processors#dead-letter-queue)
+>    - You can find out more about this in [this section of the reference guide](https://docs.axoniq.io/reference-guide/axon-framework/events/event-processors#dead-letter-queue)
 > 2. Restart the application
->   - What behavior do we see?
+>    - What behavior do we see?
 > 3. Publish another "Good request"
->   - Is it processed despite the earlier failing event?
+>    - Is it processed despite the earlier failing event?
 ---
 
 ## Retrying
@@ -113,7 +113,7 @@ outlines how messages can be retried.
 > **Task 4**
 > 
 > 1. Create an endpoint that retries a message
->   - Alternatively, you can make a Spring @Scheduled method to do so every few seconds
+>    - Alternatively, you can make a Spring @Scheduled method to do so every few seconds
 > 2. Call your endpoint
 > 3. Observe what happens
 ---
@@ -127,8 +127,8 @@ With this policy, we can add diagnostics to the Dead Letter. In these we can sto
 >
 > 1. Create a policy that discards messages after 5 tries
 > 2. Retry the message a few times
->   - Observe the message being evicted from the DLQ when the 5 tries are exceeded
->   - If you have multiple bad events, it will rotate between them, and you will need more retry calls. 
+>    - Observe the message being evicted from the DLQ when the 5 tries are exceeded
+>    - If you have multiple bad events, it will rotate between them, and you will need more retry calls. 
 ---
 
 ## Fixing the bug
@@ -141,7 +141,7 @@ Last but not least, let's fix the bug!
 > 2. Now, update the column size to 50 in `ProductNameEntity`. 
 > 3. Restart the application
 > 4. Call you retry endpoint
->   - Observe the message being processed. 
+>    - Observe the message being processed. 
 ---
 
 ## Conclusion
