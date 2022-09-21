@@ -17,3 +17,6 @@ POST localhost:8080/product
 Content-Type: application/json
 
 {"id":  "ACE_PRODUCT_2", "name":  "My lovely product 2"}
+
+### Retry endpoint
+POST localhost:8080/retry
