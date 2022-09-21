@@ -6,6 +6,7 @@ This workshop will show you how it works and how you can use it in your applicat
 If you have any questions during the workshop, please ask one of the AxonIQ developers walking around the room! 
 Or, if you are doing this workshop at a later date, [reach out on our Discuss](https://discuss.axoniq.io/).
 
+![https://www.axoniq.io/event-driven-con](.assets/conference_logo.jpg)
 
 ## Introduction
 
@@ -16,6 +17,8 @@ The `Product` aggregate contains the validation and then applies events.
 The events are handled by the `product_name` projection, 
 which saves the current product name for each id to the database.
 
+## Solutions
+You can access the solution for each step on a git branch, called `solution/step_{step}`.
 
 ## Getting started
 
@@ -41,7 +44,9 @@ After starting AxonServer, you should be able to check the dashboard by visiting
 In this demo application you can create products using the `POST /product` endpoint. 
 Requests for this are included in [the http file](./requests.http).
 
-This will lead to the `ProductCreatedEvent`, handled in the `product_name` projection to update it. 
+This will lead to the `ProductCreatedEvent`, handled in the `product_name` projection to save it. 
+When the product already exists and the name is changed, it will apply an `ProductNameChangedEvent`.
+The projection will then update the name. 
 
 > **Task 1**
 > 
@@ -95,33 +100,53 @@ Or rather, we can park the event so newer events can get processed, until we fix
 > 
 > 1. Register a Dead-letter Queue in the `WorkshopConfiguration`
 >    - You can find out more about this in [this section of the reference guide](https://docs.axoniq.io/reference-guide/axon-framework/events/event-processors#dead-letter-queue)
-> 2. Restart the application
+> 2. Restart the application and publish a "Bad request"
 >    - What behavior do we see?
 > 3. Publish another "Good request"
->    - Is it processed despite the earlier failing event?
+>    - What happens to the second good event?
+> 4. Publish the "Good request second product"
+>    - What happens to this good event for another aggregate?
+
+As you can see, once an event fails for an aggregate in a projection, events that follow it are moved to the DLQ
+as well. More often than not, projections depend on earlier events. For example, the `ProductCreatedEvent` ceates the 
+entity, and the `ProductNameChangedEvent` looks for it and updates the name.
+
+If the `ProductCreatedEvent` was moved to the DLQ, and the `ProductNameChangedEvent` was not, the event would fail
+because they depend on each other. This is why it is a "Sequenced Dead Letter Queue". Each event belongs to a sequence.
+Is an event's sequence already present in the DLQ at the start of processing, it's moved to the DLQ automatically.
+
+By default, the sequencing policy is the aggregate identifier. You can modify this on the `EventProcessingConfigurer`,
+if you want to. 
+
 ---
 
 ## Retrying
-It's nice that we have now parked the bad event, and good events can be processed. 
+It's nice that we have now parked multiple bad events, and good event sequences can be processed. 
 Our projection is not fully consistent, but it's better than if it had stalled completely.
 
-We need to fix the bug (enlarging the column) and then retry the event. Let's focus on the retry mechanism first!
+We need to fix the bug (enlarging the column) and then retry the event sequence. 
+Let's focus on the retry mechanism first!
 
 [This section of the reference guide](https://docs.axoniq.io/reference-guide/axon-framework/events/event-processors#processing-dead-letter-sequences)
 outlines how messages can be retried. 
+An important fact to note is that we retry a sequence of events, not a single event. 
+If there are 10 events in the DLQ for the same aggregate identifier, 
+for example, it will try to process all 10 events, one by one.
 
 > **Task 4**
 > 
 > 1. Create an endpoint that retries a message
->    - Alternatively, you can make a Spring @Scheduled method to do so every few seconds
+>    - Alternatively, you can make a Spring `@Scheduled` method to do so every few seconds
 > 2. Call your endpoint
 > 3. Observe what happens
 ---
 
 ## Retry policy
 Sometimes we want to limit the number of times a message will be retried. 
-In that case, we can [configure a policy](https://docs.axoniq.io/reference-guide/axon-framework/events/event-processors#processing-dead-letter-sequences). 
-With this policy, we can add diagnostics to the Dead Letter. In these we can store the number of times a message has been retried. 
+In that case, 
+we can [configure a policy](https://docs.axoniq.io/reference-guide/axon-framework/events/event-processors#processing-dead-letter-sequences). 
+With this policy, we can add diagnostics to the Dead Letter. 
+In these we can store the number of times a message has been retried. 
 
 > **Task 5**
 >
@@ -141,7 +166,8 @@ Last but not least, let's fix the bug!
 > 2. Now, update the column size to 50 in `ProductNameEntity`. 
 > 3. Restart the application
 > 4. Call you retry endpoint
->    - Observe the message being processed. 
+>    - Observe the message being processed.
+
 ---
 
 ## Conclusion

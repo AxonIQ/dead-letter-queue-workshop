@@ -1,6 +1,6 @@
 package io.axoniq.workshop.dlq.adapter.rest;
 
-import io.axoniq.workshop.dlq.api.CreateProductCommand;
+import io.axoniq.workshop.dlq.api.CreateOrUpdateProductNameCommand;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +15,7 @@ public class ProductNameEndpoint {
     }
 
     @PostMapping("product")
-    public void createProduct(@RequestBody String name) {
-        commandGateway.sendAndWait(new CreateProductCommand(name));
+    public void createProduct(@RequestBody ProductNameCreateOrUpdateRequest request) {
+        commandGateway.sendAndWait(new CreateOrUpdateProductNameCommand(request.getId(), request.getName()));
     }
 }

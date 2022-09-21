@@ -1,13 +1,19 @@
 ### Good request
 POST localhost:8080/product
-Content-Type: text/plain
+Content-Type: application/json
 
-My lovely product
+{"id":  "ACE_PRODUCT", "name":  "My lovely product"}
 
 
-### Bad request
+### Bad request 1
 POST localhost:8080/product
-Content-Type: text/plain
+Content-Type: application/json
 
-My lovely product with a too long name for the database!
+{"id":  "ACE_PRODUCT", "name":  "My lovely product with a way too long name!"}
 
+
+### Good request second product
+POST localhost:8080/product
+Content-Type: application/json
+
+{"id":  "ACE_PRODUCT_2", "name":  "My lovely product 2"}
