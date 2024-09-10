@@ -9,7 +9,7 @@ class ProductNameEntity {
 
     @Id
     private String id;
-    @Column(length = 256)
+    @Column(length = 20)
     private String name;
 
     public ProductNameEntity(String id, String name) {
