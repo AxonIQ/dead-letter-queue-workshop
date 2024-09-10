@@ -1,5 +1,8 @@
 package io.axoniq.workshop.dlq.api;
 
-public record ProductNameChangedEvent(String productId, String productName) {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record ProductNameChangedEvent(@JsonProperty String productId,
+                                      @JsonProperty String productName) {
 
 }
