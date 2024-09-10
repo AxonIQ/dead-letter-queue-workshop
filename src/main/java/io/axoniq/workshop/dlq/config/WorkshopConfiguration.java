@@ -12,15 +12,20 @@ public class WorkshopConfiguration {
 
     @Autowired
     public void configureEventProcessing(EventProcessingConfigurer configurer) {
-        configurer.registerDeadLetterQueue("product_name",
-                                           configuration -> JpaSequencedDeadLetterQueue
-                                                   .builder()
-                                                   .processingGroup("product_name")
-                                                   .maxSequences(256)
-                                                   .maxSequenceSize(256)
-                                                   .entityManagerProvider(configuration.getComponent(EntityManagerProvider.class))
-                                                   .transactionManager(configuration.getComponent(TransactionManager.class))
-                                                   .serializer(configuration.serializer())
-                                                   .build());
+        configurer.registerDeadLetterQueue(
+                "product_name",
+                config -> JpaSequencedDeadLetterQueue.builder()
+                                                     .processingGroup("product_name")
+                                                     .maxSequences(256)
+                                                     .maxSequenceSize(256)
+                                                     .entityManagerProvider(config.getComponent(
+                                                             EntityManagerProvider.class
+                                                     ))
+                                                     .transactionManager(config.getComponent(
+                                                             TransactionManager.class
+                                                     ))
+                                                     .serializer(config.serializer())
+                                                     .build()
+        );
     }
 }
