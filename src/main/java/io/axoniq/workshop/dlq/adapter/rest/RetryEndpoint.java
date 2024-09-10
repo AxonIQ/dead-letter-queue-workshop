@@ -7,10 +7,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class RetryEndpoint {
+class RetryEndpoint {
 
     private final EventProcessingConfiguration configuration;
-
 
     public RetryEndpoint(EventProcessingConfiguration configuration) {
         this.configuration = configuration;
