@@ -1,6 +1,6 @@
-# Dead-letter queue workshop
+# Dead-Letter Queue Workshop
 
-With Axon Framework 4.6.0, we introduce the Dead-letter Queue feature. 
+In Axon Framework [release 4.6.0](https://github.com/AxonFramework/AxonFramework/releases/tag/axon-4.6.0), we introduce the Dead-Letter Queue feature for [Event Processors](https://library.axoniq.io/axon_framework_ref/events/event-processors/README.html). 
 This workshop will show you how it works and how you can use it in your application.
 
 If you have any questions during the workshop, please ask one of the AxonIQ developers walking around the room! 
@@ -39,7 +39,7 @@ Alternatively, you can run the following command to start AxonServer in a Docker
 
 After starting AxonServer, you should be able to check the dashboard by visiting: [http://localhost:8024](http://localhost:8024)
 
-## Observing the application
+## 1 - Observing the Application
 
 In this demo application you can create products using the `POST /product` endpoint. 
 Requests for this are included in [the http file](./requests.http).
@@ -61,7 +61,7 @@ The projection will then update the name.
 
 ---
 
-## Error propagation
+## 2 - Error Propagation
 As you have observed, our column definition is set to a too low value to save the name of the second product!
 The aggregate did not validate this, as a product should be allowed to have a long name. 
 It's an error of the projection.
@@ -88,7 +88,7 @@ you should configure a `ListenerInvocationErrorHandler` that throws the error, s
 > Move on to the next section when you can answer these questions.
 
 ---
-## Stuck!
+## 3 - Stuck!
 As you might have noticed, the event processor is stuck on the broken event. 
 Newer events will not be processed.
 The data in our projection is getting stale!
@@ -120,7 +120,7 @@ if you want to.
 
 ---
 
-## Retrying
+## 4 - Retrying
 It's nice that we have now parked multiple bad events, and good event sequences can be processed. 
 Our projection is not fully consistent, but it's better than if it had stalled completely.
 
@@ -141,7 +141,7 @@ for example, it will try to process all 10 events, one by one.
 > 3. Observe what happens
 ---
 
-## Retry policy
+## 5 - Retry Policy
 Sometimes we want to limit the number of times a message will be retried. 
 In that case, 
 we can [configure a policy](https://library.axoniq.io/axon_framework_ref/events/event-processors/README.html#_dead_letter_enqueue_policy). 
@@ -156,7 +156,7 @@ In these we can store the number of times a message has been retried.
 >    - If you have multiple bad events, it will rotate between them, and you will need more retry calls. 
 ---
 
-## Fixing the bug
+## 6 - Fixing the Bug
 
 Last but not least, let's fix the bug!
 
@@ -175,7 +175,4 @@ Last but not least, let's fix the bug!
 Using the Dead-Letter Queue of Axon Framework will help you in the management of your event processor failures.
 By parking bad messages, you can prevent your event processors from getting stuck. 
 
-We hope this demonstrated the DLQ for you! If you have any questions, let us know. 
-
-
-
+We hope this demonstrated the DLQ for you! If you have any questions, let us know.
