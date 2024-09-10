@@ -1,5 +1,6 @@
 package io.axoniq.workshop.dlq.adapter.rest;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.axoniq.workshop.dlq.api.CreateOrUpdateProductNameCommand;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,8 @@ public class ProductNameEndpoint {
         commandGateway.sendAndWait(new CreateOrUpdateProductNameCommand(request.id(), request.name()));
     }
 
-    public record ProductNameCreateOrUpdateRequest(String id, String name) {
+    public record ProductNameCreateOrUpdateRequest(@JsonProperty String id,
+                                                   @JsonProperty String name) {
 
     }
 }
