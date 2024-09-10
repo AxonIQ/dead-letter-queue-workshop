@@ -1,11 +1,12 @@
 package io.axoniq.workshop.dlq.query;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
-public class ProductNameEntity {
+class ProductNameEntity {
+
     @Id
     private String id;
     @Column(length = 256)

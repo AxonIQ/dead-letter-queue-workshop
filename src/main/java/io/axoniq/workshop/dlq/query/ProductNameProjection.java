@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @ProcessingGroup("product_name")
 @Transactional(propagation = Propagation.REQUIRES_NEW)
-public class ProductNameProjection {
+class ProductNameProjection {
 
     private final ProductNameRepository repository;
 
@@ -21,13 +21,13 @@ public class ProductNameProjection {
 
     @EventHandler
     public void handle(ProductCreatedEvent event) {
-        repository.save(new ProductNameEntity(event.getProductId(), event.getProductName()));
+        repository.save(new ProductNameEntity(event.productId(), event.productName()));
     }
 
     @EventHandler
     public void handle(ProductNameChangedEvent event) {
-        ProductNameEntity product = repository.findById(event.getProductId()).orElseThrow();
-        product.setName(event.getProductName());
+        ProductNameEntity product = repository.findById(event.productId()).orElseThrow();
+        product.setName(event.productName());
         repository.save(product);
     }
 }
