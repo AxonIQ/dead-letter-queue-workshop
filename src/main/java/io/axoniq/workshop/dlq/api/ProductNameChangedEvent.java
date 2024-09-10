@@ -1,19 +1,8 @@
 package io.axoniq.workshop.dlq.api;
 
-public class ProductNameChangedEvent {
-    private final String productId;
-    private final String productName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    public ProductNameChangedEvent(String productId, String productName) {
-        this.productId = productId;
-        this.productName = productName;
-    }
+public record ProductNameChangedEvent(@JsonProperty String productId,
+                                      @JsonProperty String productName) {
 
-    public String getProductId() {
-        return productId;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
 }
