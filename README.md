@@ -10,14 +10,16 @@ Or, if you are doing this workshop at a later date, [reach out on our Discuss](h
 
 ## Introduction
 
-This repository contains the `ProductNaming` Microservice of a big retailer. 
+This repository contains the product naming service of a big retailer. 
 It's responsible for the naming of products, and only that. 
 
 The `Product` aggregate contains the validation and then applies events. 
-The events are handled by the `product_name` projection, 
-which saves the current product name for each id to the database.
+The events are handled by the `product_name` projection, which saves the current product name for each id to the database.
+The database used by the product naming service is `h2` storing the projections in a file.
+Hence, if you want to get rid of them, you can simply remove the database file that is automatically created in this project on start-up.
 
 ## Solutions
+
 You can access the solution for each step on a git branch, called `solution/step_{step}`.
 
 ## Getting started
@@ -62,6 +64,7 @@ The projection will then update the name.
 ---
 
 ## 2 - Error Propagation
+
 As you have observed, our column definition is set to a too low value to save the name of the second product!
 The aggregate did not validate this, as a product should be allowed to have a long name. 
 It's an error of the projection.
@@ -89,6 +92,7 @@ you should configure a `ListenerInvocationErrorHandler` that throws the error, s
 
 ---
 ## 3 - Stuck!
+
 As you might have noticed, the event processor is stuck on the broken event. 
 Newer events will not be processed.
 The data in our projection is getting stale!
@@ -121,6 +125,7 @@ if you want to.
 ---
 
 ## 4 - Retrying
+
 It's nice that we have now parked multiple bad events, and good event sequences can be processed. 
 Our projection is not fully consistent, but it's better than if it had stalled completely.
 
@@ -142,6 +147,7 @@ for example, it will try to process all 10 events, one by one.
 ---
 
 ## 5 - Retry Policy
+
 Sometimes we want to limit the number of times a message will be retried. 
 In that case, 
 we can [configure a policy](https://library.axoniq.io/axon_framework_ref/events/event-processors/README.html#_dead_letter_enqueue_policy). 
