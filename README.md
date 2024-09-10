@@ -162,11 +162,30 @@ In these we can store the number of times a message has been retried.
 >    - If you have multiple bad events, it will rotate between them, and you will need more retry calls. 
 ---
 
-## 6 - Fixing the Bug
+## 6 - Dead-Letter Queue Monitoring in AxonIQ Console
+
+As you have started the product naming service several times now, you have likely seen the log statement from `AxonIQConsoleModule`:
+
+> You have not configured AxonIQ Console. AxonIQ Console provides out-of-the box monitoring 
+> and management capabilities for your Axon Application, starting with it is free.
+> Visit https://console.axoniq.io for more information!
+> Suppress this message by setting system property disable-axoniq-console-message to true.
+
+One of AxonIQ Console's monitoring capabilities, as about Dead-Letter Queues!
+
+> **Task 6**
+> 
+> 1. Browse to https://console.axoniq.io
+> 2. Login or create an account
+> 3. Create a new workspace called "product naming service" with environment name "dlq"
+> 4. Follow the "Spring Boot Installation" method shown in the dashboard. Be sure to select "Full - All Data" for the DLQ mode!
+> 5. Browse to the "Processors" page and click on the dead-letters value in the `product_name` row
+
+## 7 - Fixing the Bug
 
 Last but not least, let's fix the bug!
 
-> **Task 6**
+> **Task 7**
 >
 > 1. Execute a "Bad Request", so we have a bad event in the DLQ.
 > 2. Now, update the column size to 50 in `ProductNameEntity`. 
