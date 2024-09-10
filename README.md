@@ -6,7 +6,7 @@ This workshop will show you how it works and how you can use it in your applicat
 If you have any questions during the workshop, please ask one of the AxonIQ developers walking around the room! 
 Or, if you are doing this workshop at a later date, [reach out on our Discuss](https://discuss.axoniq.io/).
 
-![https://www.axoniq.io/event-driven-con](.assets/conference_logo.jpg)
+![https://www.axoniq.io/axoniq-conference-2024](.assets/con24.png)
 
 ## Introduction
 
@@ -23,9 +23,9 @@ You can access the solution for each step on a git branch, called `solution/step
 ## Getting started
 
 Make sure you have the following tools available:
-- Java 11+ installed
+- Java 21+ installed
 - Maven 3+ installed
-- JAVA IDE of choice
+- Java IDE of choice
 
 ### Start Axon Server
 

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ProductNameEndpoint {
+
     private final CommandGateway commandGateway;
 
     public ProductNameEndpoint(CommandGateway commandGateway) {
@@ -16,6 +17,10 @@ public class ProductNameEndpoint {
 
     @PostMapping("product")
     public void createProduct(@RequestBody ProductNameCreateOrUpdateRequest request) {
-        commandGateway.sendAndWait(new CreateOrUpdateProductNameCommand(request.getId(), request.getName()));
+        commandGateway.sendAndWait(new CreateOrUpdateProductNameCommand(request.id(), request.name()));
+    }
+
+    public record ProductNameCreateOrUpdateRequest(String id, String name) {
+
     }
 }
