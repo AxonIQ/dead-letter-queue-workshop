@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @ProcessingGroup("product_name")
 @Transactional(propagation = Propagation.REQUIRES_NEW)
-public class ProductNameProjection {
+class ProductNameProjection {
 
     private final ProductNameRepository repository;
 

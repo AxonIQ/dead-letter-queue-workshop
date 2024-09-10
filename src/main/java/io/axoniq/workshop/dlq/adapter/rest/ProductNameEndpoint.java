@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class ProductNameEndpoint {
+class ProductNameEndpoint {
 
     private final CommandGateway commandGateway;
 

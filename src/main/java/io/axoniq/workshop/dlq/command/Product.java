@@ -12,7 +12,7 @@ import org.axonframework.modelling.command.CreationPolicy;
 import org.axonframework.spring.stereotype.Aggregate;
 
 @Aggregate
-public class Product {
+class Product {
 
     @AggregateIdentifier
     private String productId;
