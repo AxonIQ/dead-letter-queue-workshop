@@ -78,7 +78,7 @@ you should configure a `ListenerInvocationErrorHandler` that throws the error, s
 > **Task 2**
 > 
 > 1. Use the `WorkshopConfiguration` class to configure a `PropagatingErrorHandler`. 
->    - Check out [this section in the reference guide](https://docs.axoniq.io/reference-guide/axon-framework/events/event-processors#processing-group-listener-invocation-error-handler)
+>    - Check out [this section in the library](https://library.axoniq.io/axon_framework_ref/events/event-processors/README.html#_processing_group_listener_invocation_error_handler)
 > how you can do this.
 > 2. Restart the application and execute the "Bad Request" again. 
 >    - What behavior do you see?
@@ -99,7 +99,7 @@ Or rather, we can park the event so newer events can get processed, until we fix
 > **Task 3**
 > 
 > 1. Register a Dead-letter Queue in the `WorkshopConfiguration`
->    - You can find out more about this in [this section of the reference guide](https://docs.axoniq.io/reference-guide/axon-framework/events/event-processors#dead-letter-queue)
+>    - You can find out more about this in [this section of the library](https://library.axoniq.io/axon_framework_ref/events/event-processors/README.html#dead-letter-queue)
 > 2. Restart the application and publish a "Bad request"
 >    - What behavior do we see?
 > 3. Publish another "Good request"
@@ -127,7 +127,7 @@ Our projection is not fully consistent, but it's better than if it had stalled c
 We need to fix the bug (enlarging the column) and then retry the event sequence. 
 Let's focus on the retry mechanism first!
 
-[This section of the reference guide](https://docs.axoniq.io/reference-guide/axon-framework/events/event-processors#processing-dead-letter-sequences)
+[This section of the library](https://library.axoniq.io/axon_framework_ref/events/event-processors/README.html#_processing_dead_letter_sequences)
 outlines how messages can be retried. 
 An important fact to note is that we retry a sequence of events, not a single event. 
 If there are 10 events in the DLQ for the same aggregate identifier, 
@@ -144,7 +144,7 @@ for example, it will try to process all 10 events, one by one.
 ## Retry policy
 Sometimes we want to limit the number of times a message will be retried. 
 In that case, 
-we can [configure a policy](https://docs.axoniq.io/reference-guide/axon-framework/events/event-processors#processing-dead-letter-sequences). 
+we can [configure a policy](https://library.axoniq.io/axon_framework_ref/events/event-processors/README.html#_dead_letter_enqueue_policy). 
 With this policy, we can add diagnostics to the Dead Letter. 
 In these we can store the number of times a message has been retried. 
 
