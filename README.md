@@ -166,12 +166,10 @@ In these we can store the number of times a message has been retried.
 
 As you have started the product naming service several times now, you have likely seen the log statement from `AxonIQConsoleModule`:
 
-> ################################################################################################
-> ## You have not configured AxonIQ Console. AxonIQ Console provides out-of-the box monitoring  ##
-> ## and management capabilities for your Axon Application, starting with it is free.           ##
-> ## Visit https://console.axoniq.io for more information!                                      ##
-> ## Suppress this message by setting system property disable-axoniq-console-message to true.   ##
-> ################################################################################################
+> You have not configured AxonIQ Console. AxonIQ Console provides out-of-the box monitoring 
+> and management capabilities for your Axon Application, starting with it is free.
+> Visit https://console.axoniq.io for more information!
+> Suppress this message by setting system property disable-axoniq-console-message to true.
 
 One of AxonIQ Console's monitoring capabilities, as about Dead-Letter Queues!
 
