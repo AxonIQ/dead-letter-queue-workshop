@@ -2,17 +2,17 @@ package io.axoniq.workshop.dlq.config;
 
 import org.axonframework.common.jpa.EntityManagerProvider;
 import org.axonframework.common.transaction.TransactionManager;
-import org.axonframework.config.EventProcessingConfigurer;
+import org.axonframework.config.ConfigurerModule;
 import org.axonframework.eventhandling.deadletter.jpa.JpaSequencedDeadLetterQueue;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class WorkshopConfiguration {
 
-    @Autowired
-    public void configureEventProcessing(EventProcessingConfigurer configurer) {
-        configurer.registerDeadLetterQueue(
+    @Bean
+    public ConfigurerModule deadLetterQueueConfigurerModule() {
+        return configurer -> configurer.eventProcessing().registerDeadLetterQueue(
                 "product_name",
                 config -> JpaSequencedDeadLetterQueue.builder()
                                                      .processingGroup("product_name")
