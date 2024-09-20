@@ -32,14 +32,14 @@ Make sure you have the following tools available:
 ### Start Axon Server
 
 We will use Axon Server during the workshop as an event storage engine.
-You can [download a ZIP file with AxonServer as a standalone JAR](https://download.axoniq.io/axonserver/AxonServer.zip). 
-This will also give you the AxonServer CLI and information on how to run and configure the server.
+You can [download a ZIP file with Axon Server as a standalone JAR](https://download.axoniq.io/axonserver/AxonServer.zip). 
+This will also give you the Axon Server CLI and information on how to run and configure the server.
 
-Alternatively, you can run the following command to start AxonServer in a Docker container:
+Alternatively, you can run the following command to start Axon Server in a Docker container:
 
 ```docker run -d --name axonserver-dlq -p 8024:8024 -p 8124:8124 axoniq/axonserver```
 
-After starting AxonServer, you should be able to check the dashboard by visiting: [http://localhost:8024](http://localhost:8024)
+After starting Axon Server, you should be able to check the dashboard by visiting: [http://localhost:8024](http://localhost:8024)
 
 ## 1 - Observing the Application
 
